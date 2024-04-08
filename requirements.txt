@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pandas
+numpy
+pydantic
+shap
+matplotlib
+ipython
+imbalanced-learn
+scikit-learn
+lightgbm
+imblearn
+re
+pickle
