@@ -1,8 +1,8 @@
-from API import get_ids
-from API import identite_client
-from API import load_prediction
-from API import shap_value
-from API import nb_credits
+from api import get_ids
+from api import identite_client
+from api import load_prediction
+from api import shap_value
+from api import nb_credits
 
 #import pandas as pd
 #import logging
