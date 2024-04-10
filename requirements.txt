@@ -1,14 +1,23 @@
 fastapi
+# pydantic
 uvicorn
+
 pandas
-numpy
-pydantic
-shap
-matplotlib
+# numpy
+
+# matplotlib
+
 ipython
-imbalanced-learn
-scikit-learn
+
+scikit-learn==1.3.2
+imbalanced-learn # imblearn
 lightgbm
-imblearn
-re
-pickle
+shap
+
+# re
+# pickle
+
+isort  # trier les imports 
+black   # formater le code
+pytest # jouer les tests
+
