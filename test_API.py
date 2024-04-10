@@ -1,8 +1,8 @@
-from api import get_ids
-from api import identite_client
-from api import load_prediction
-from api import shap_value
-
+from API import get_ids
+from API import identite_client
+from API import load_prediction
+from API import shap_value
+from API import nb_credits
 
 #import pandas as pd
 #import logging
@@ -17,7 +17,7 @@ def test_get_ids():
 
 def test_client_details(id=100002.0):
     data_client = identite_client(id)
-    assert 'AMT_INCOME_TOTAL' in data_client.columns
+    assert 'CODE_GENDER' in data_client.columns
     
 def test_client_prediction(id=100002.0):
     prediction,statut = load_prediction(id)
@@ -27,3 +27,8 @@ def test_client_prediction(id=100002.0):
 def test_shap_value(id=100002.0):
     shap_id=shap_value(id)
     assert len(shap_id)>0
+    
+    
+def test_nb():
+    nb=nb_credits()
+    assert nb>0
