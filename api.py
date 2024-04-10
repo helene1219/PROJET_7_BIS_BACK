@@ -39,8 +39,6 @@ sampler=pd.read_pickle(pkl_6)
 pkl_7 = open("pickle/estimateur.pkl","rb")
 estimateur=pd.read_pickle(pkl_7)
 
-pkl_8= open("pickle/trans_Imput_Scale.pkl","rb")
-trans_imput_scale=pd.read_pickle(pkl_8)
 
 y=data['TARGET']
 X=data.drop(['SK_ID_CURR','TARGET'],axis=1)
@@ -87,55 +85,59 @@ shap_vals = explainer(X_train_sample)
 def index():
     return {'message': 'Hello. API en cours'} 
 
-@api.get("/") 
+@api.get("/ids/") 
 def get_ids() -> dict:
     id=data['SK_ID_CURR'].to_dict()
     return id
     
 # Identité client
-@api.get("/") 
+@api.get("/data_client/") 
 def identite_client(id):
-        data_client = data[data.index == int(id)]
+        data_client = data[data['SK_ID_CURR'] == id]
         return data_client
     
 # Informations sur dataset
-@api.get('/')
-def load_infos_gen(data):
-    lst_infos = [data.shape[0],
-                 round(data["AMT_INCOME_TOTAL"].mean(), 2),
-                 round(data["AMT_CREDIT"].mean(), 2)]
+@api.get('/credit_moyen/')
+def credit_moy():
+    credits_moy = round(data["AMT_CREDIT"].mean(), 2)
+    return credits_moy
 
-    nb_credits = lst_infos[0]
-    rev_moy = lst_infos[1]
-    credits_moy = lst_infos[2]
-    return nb_credits, rev_moy, credits_moy
+# Informations sur dataset
+@api.get('/nb_credit/')
+def nb_credits():
+    nb_credits=data.shape[0]
+    return nb_credits
 
-
+# Informations sur dataset
+@api.get('/rev_moyen/')
+def rev_moy():
+    rev_moy = round(data["AMT_INCOME_TOTAL"].mean(), 2)
+    return rev_moy
 
     
 # Informations sur dataset
-@api.get("/") 
+@api.get("/age/") 
 def load_age_population(data):
     data_age = round(-(data["DAYS_BIRTH"]/365), 2)
     return data_age
     
    
    
-@api.get("/") 
+@api.get("/data_plot/") 
 def load_income_population(sample):
     df_income = pd.DataFrame(sample["AMT_INCOME_TOTAL"])
     df_income = df_income.loc[df_income['AMT_INCOME_TOTAL'] < 200000, :]
     return df_income
     
 # Calcul prédiction    
-@api.get("/")
+@api.get("/prediction/")
 def load_prediction(id):
     data_ID=data[['SK_ID_CURR']]
     y_pred_lgbm_proba = model_LGBM.predict_proba(X_train_sample)
     y_pred_lgbm_proba_df = pd.DataFrame(y_pred_lgbm_proba, columns=['proba_classe_0', 'proba_classe_1'])
     y_pred_lgbm_proba_df=pd.concat([y_pred_lgbm_proba_df, data_ID], axis=1)
         
-    y_pred_lgbm_proba_df=y_pred_lgbm_proba_df[y_pred_lgbm_proba_df['SK_ID_CURR']==int(id)]
+    y_pred_lgbm_proba_df=y_pred_lgbm_proba_df[y_pred_lgbm_proba_df['SK_ID_CURR']==id]
     prediction=y_pred_lgbm_proba_df.iat[0,1]
         
     if y_pred_lgbm_proba_df.iat[0,1]*100>50 : 
@@ -145,8 +147,8 @@ def load_prediction(id):
     return prediction,statut
     
 
-# Calcul prédiction    
-@api.get("/")
+# Shap value    
+@api.get("/shap/")
 def shap_value(id):
     nbligne=data.loc[data['SK_ID_CURR'] == int(id)].index.item()
     fig, ax = plt.subplots(figsize=(10, 10))
