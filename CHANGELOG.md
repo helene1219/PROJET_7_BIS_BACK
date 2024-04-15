@@ -15,9 +15,9 @@
 ## Todo 
 
 ### Must Have
-1. fix encoder ==> no need to fit (???)
-2. by hand or **by test** => validate all routes 
-3. Update ci / cd .yaml ==> devOps *github workflow* ????
+1. fix encoder ==> no need to fit (???) --> Ok retirer
+2. by hand or **by test** => validate all routes --> Client_id pour deux test à rectifier car en dur dans api
+3. Update ci / cd .yaml ==> devOps *github workflow* ???? --> Fichier modifié
 (4. deploy on render.com or AWS or GCP or AZURE)
 
 ### Nice Have 
