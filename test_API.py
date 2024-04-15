@@ -2,9 +2,8 @@
 Test pour API
 """
 
-import pytest
 import pandas as pd
-
+import pytest
 from fastapi.testclient import TestClient
 
 from src.api import app
@@ -21,68 +20,64 @@ def test_read_main():
 
 
 def test_get_ids():
-    """# teste sur liste Id """
-    
+    """# teste sur liste Id"""
+
     response = client.get("/ids/")
-    
-    assert response.status_code == 200    
-    
+
+    assert response.status_code == 200
+
     status_code = response.status_code
     content = response.json()
-    
+
     # test dtype and shape
     assert isinstance(content, list)
     assert len(content) > 50
 
 
+def test_features_id():
+    """# teste si ok récupération client_id selectionné"""
 
-    
-def test_features_id(client_id=100006.0):
-    
-    """# teste si ok récupération client_id selectionné """    
-    
-    response = client.get("/data_client/{client_id}")
-    
-    assert response.status_code == 200    
-    
+    client_id = 100006
+    response = client.get(f"/data_client/{client_id}")
+
+    assert response.status_code == 200
+
     content = response.json()
 
     assert isinstance(content, dict)
-    assert len(content) > 10    
-    
+    assert len(content) > 10
 
 
+def test_client_prediction():
+    """vérifier prédiction du cient"""
 
-def test_client_prediction(id=100002.0):
-    """ vérifier prédiction du cient """    
-    
-    response = client.get("/prediction/{client_id}")
-    
+    client_id = 100002
+    response = client.get(f"/prediction/{client_id}")
+
     assert response.status_code == 200
-    statut  = response.json()
-    
+    statut = response.json()
+
     assert (statut := 0) | (statut := 1)
 
 
+def test_shap_value(client_id=100002):
 
-def test_shap_value(client_id=100002.0):
-    
-    response = client.get("/shap/{client_id}")
-    
+    client_id = 100002
+    response = client.get(f"/shap/{client_id}")
+
     assert response.status_code == 200
-    shap_id  = response.json()
-    
-    #assert shap_id>=0
+    shap_id = response.json()
+
+    # assert shap_id>=0
     assert isinstance(shap_id, dict)
-    assert len(shap_id) > 10  
+    assert len(shap_id) > 10
 
 
 def test_nb():
 
     response = client.get("/nb_credit/")
-    
+
     assert response.status_code == 200
-    nb  = response.json()
+    nb = response.json()
 
-    assert nb>0
-
+    assert nb > 0

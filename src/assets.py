@@ -4,7 +4,6 @@ Assets driectly loaded
 
 import pandas as pd
 
-
 with open("./src/pickle/best_lgbm.pkl", "rb") as f:
     best_LGBM = pd.read_pickle(f)
 

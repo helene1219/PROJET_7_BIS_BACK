@@ -1,6 +1,18 @@
 # Changelog 
 
+## 2024-04-15 - Mentorship Session
 
+
+
+### Updated 
+- Pb Shap values
+- Udpate dess test avec f"{}" method 
+- add clearly client_id in the body of the test
+- updzate api to add each clientid cast as int and  try  / except if failure 
+
+### Todo 
+- 1 seul fichier de test pas 3
+- update api.py to fix how to find a vector in the database
 
 # 10 MAI => MAX  !!! 
 
