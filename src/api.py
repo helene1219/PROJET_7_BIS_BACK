@@ -10,6 +10,8 @@ from .preprocess import *
 app = FastAPI()
 
 
+
+
 @app.get("/")
 def read_main():
 
@@ -19,15 +21,17 @@ def read_main():
 @app.get("/ids/")
 def get_ids():
 
-    id = data["SK_ID_CURR"].to_dict()
+    id = data["SK_ID_CURR"].to_list()
     return id
 
 
-@app.get("/data_client/")
-def identite_client(id):
+@app.get("/data_client/{client_id}")
 
-    data_client = data[data["SK_ID_CURR"] == id]
+
+def identite_client(client_id):
+    data_client = data.loc[data["SK_ID_CURR"] == client_id]
     return data_client
+
 
 
 @app.get("/credit_moyen/")
@@ -74,39 +78,32 @@ def load_income_population(sample):
 
 
 # Calcul prédiction
-@app.get("/prediction/")
-def load_prediction(id):
+@app.get("/prediction/{client_id}")
+def load_prediction(client_id):
 
-    data_ID = data[["SK_ID_CURR"]]
-    y_pred_lgbm_proba = model_LGBM.predict_proba(X_train_sample)
-    y_pred_lgbm_proba_df = pd.DataFrame(
-        y_pred_lgbm_proba, columns=["proba_classe_0", "proba_classe_1"]
-    )
-    y_pred_lgbm_proba_df = pd.concat([y_pred_lgbm_proba_df, data_ID], axis=1)
+    id = data["SK_ID_CURR"].to_list()
+    nbligne=id.index(100002)
 
-    y_pred_lgbm_proba_df = y_pred_lgbm_proba_df[
-        y_pred_lgbm_proba_df["SK_ID_CURR"] == id
-    ]
-    prediction = y_pred_lgbm_proba_df.iat[0, 1]
+    #proba_id = proba_df.loc[proba_df["SK_ID_CURR"] == client_id]
+    #prediction = proba_df.iat[nbligne, 1]
 
-    if y_pred_lgbm_proba_df.iat[0, 1] * 100 > 50:
-        statut = "Client risqué"
+    if proba_df.iat[nbligne, 1] * 100 > 50:
+        statut = 0
     else:
-        statut = "Client non risqué"
+        statut = 1
 
-    return prediction, statut
+    return statut
 
 
 # Shap value
-@app.get("/shap/")
-def shap_value(id):
+@app.get("/shap/{client_id}")
+def shap_value(client_id):
+    id = data["SK_ID_CURR"].to_list()
+    nbligne=id.index(100002)
 
-    nbligne = data.loc[data["SK_ID_CURR"] == int(id)].index.item()
-    # fig, ax = plt.subplots(figsize=(10, 10))
-    explainer = shap.Explainer(model_LGBM)
-    shap_values = explainer.shap_values(X_train_sample)
-    shap_vals = explainer(X_train_sample)
+
     shap_id = shap_vals[nbligne][:, 0].values
-    # st.pyplot(fig)
+    shap_id_dict=dict(enumerate(shap_id.flatten(), 1))
 
-    return shap_id
+    return shap_id_dict
+

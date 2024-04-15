@@ -37,7 +37,7 @@ def test_get_ids():
 
 
     
-def test_features_id(client_id=100002.0):
+def test_features_id(client_id=100006.0):
     
     """# teste si ok récupération client_id selectionné """    
     
@@ -53,27 +53,28 @@ def test_features_id(client_id=100002.0):
 
 
 
-#def test_client_prediction(id=100007.0):
-    #""" vérifier prédiction du cient """    
+def test_client_prediction(id=100002.0):
+    """ vérifier prédiction du cient """    
     
-    #response = client.get("/prediction/{client_id}")
+    response = client.get("/prediction/{client_id}")
     
-    #assert response.status_code == 200
-    #statut  = response.json()
+    assert response.status_code == 200
+    statut  = response.json()
     
-    #assert (statut := 0) | (statut := 1)
+    assert (statut := 0) | (statut := 1)
 
 
 
-def test_shap_value(client_id=100002):
+def test_shap_value(client_id=100002.0):
     
     response = client.get("/shap/{client_id}")
     
     assert response.status_code == 200
     shap_id  = response.json()
     
-    assert shap_id>0
-    #assert len(shap_id.values()) > 1
+    #assert shap_id>=0
+    assert isinstance(shap_id, dict)
+    assert len(shap_id) > 10  
 
 
 def test_nb():
