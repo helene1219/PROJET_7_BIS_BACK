@@ -6,10 +6,7 @@ from fastapi import FastAPI, Response  # , UploadFile
 
 from .preprocess import *
 
-
 app = FastAPI()
-
-
 
 
 @app.get("/")
@@ -26,12 +23,15 @@ def get_ids():
 
 
 @app.get("/data_client/{client_id}")
-
-
 def identite_client(client_id):
+
+    try:
+        client_id = int(client_id)
+    except:
+        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+
     data_client = data.loc[data["SK_ID_CURR"] == client_id]
     return data_client
-
 
 
 @app.get("/credit_moyen/")
@@ -77,15 +77,22 @@ def load_income_population(sample):
     return df_income
 
 
+########################################""
+# juste renvoie le describe...
+########################################"
+
+
 # Calcul prédiction
 @app.get("/prediction/{client_id}")
 def load_prediction(client_id):
 
-    id = data["SK_ID_CURR"].to_list()
-    nbligne=id.index(100002)
+    try:
+        client_id = int(client_id)
+    except:
+        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
 
-    #proba_id = proba_df.loc[proba_df["SK_ID_CURR"] == client_id]
-    #prediction = proba_df.iat[nbligne, 1]
+    proba_id = proba_df.loc[proba_df["SK_ID_CURR"] == client_id]
+    prediction = proba_df.iat[nbligne, 1]
 
     if proba_df.iat[nbligne, 1] * 100 > 50:
         statut = 0
@@ -98,12 +105,13 @@ def load_prediction(client_id):
 # Shap value
 @app.get("/shap/{client_id}")
 def shap_value(client_id):
-    id = data["SK_ID_CURR"].to_list()
-    nbligne=id.index(100002)
 
+    try:
+        client_id = int(client_id)
+    except:
+        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
 
     shap_id = shap_vals[nbligne][:, 0].values
-    shap_id_dict=dict(enumerate(shap_id.flatten(), 1))
+    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
 
     return shap_id_dict
-
