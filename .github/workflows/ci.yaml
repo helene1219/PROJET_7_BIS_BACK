@@ -31,5 +31,5 @@ jobs:
     steps:
     - name: Checkout github repo
       uses: actions/checkout@v3
-    - name: Deploy on Render.com
-      #run: wget https://api.render.com/deploy/${{secrets.RENDER_WEBHOOK_KEY}}
+    - #name: Deploy on Render.com
+      run: wget http://127.0.0.1:8000
