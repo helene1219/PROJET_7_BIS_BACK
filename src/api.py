@@ -91,7 +91,10 @@ def load_prediction(client_id):
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
 
-    proba_id = proba_df.loc[proba_df["SK_ID_CURR"] == client_id]
+        
+    id = data["SK_ID_CURR"].to_list()
+    nbligne=id.index(client_id)    
+        
     prediction = proba_df.iat[nbligne, 1]
 
     if proba_df.iat[nbligne, 1] * 100 > 50:
@@ -110,6 +113,9 @@ def shap_value(client_id):
         client_id = int(client_id)
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+        
+    id = data["SK_ID_CURR"].to_list()
+    nbligne=id.index(client_id) 
 
     shap_id = shap_vals[nbligne][:, 0].values
     shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
