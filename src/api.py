@@ -40,6 +40,11 @@ def credit_moy():
     credits_moy = round(data["AMT_CREDIT"].mean(), 2)
     return credits_moy
 
+@app.get("/test_nb_colonne/")
+def nb_colonne():
+
+    nb_colonne =X_train_sample.shape[1]
+    return nb_colonne
 
 @app.get("/nb_credit/")
 def nb_credits():
@@ -60,7 +65,7 @@ def rev_moy():
 
 
 @app.get("/age/")
-def load_age_population(data):
+def load_age_population():
     """# Informations sur dataset"""
 
     data_age = round(-(data["DAYS_BIRTH"] / 365), 2)
@@ -68,14 +73,20 @@ def load_age_population(data):
     return data_age
 
 
-@app.get("/data_plot/")
-def load_income_population(sample):
+@app.get("/data_income/")
+def load_income_population():
 
-    df_income = pd.DataFrame(sample["AMT_INCOME_TOTAL"])
-    df_income = df_income.loc[df_income["AMT_INCOME_TOTAL"] < 200000, :]
+    df_income = pd.DataFrame(data["AMT_INCOME_TOTAL"])
+    df_income = df_income.loc[df_income["AMT_INCOME_TOTAL"] < 300000, :]
 
     return df_income
 
+@app.get("/data_age/")
+def load_income_population():
+
+    df_age = pd.DataFrame(data["DAYS_BIRTH"])
+
+    return df_age
 
 ########################################""
 # juste renvoie le describe...

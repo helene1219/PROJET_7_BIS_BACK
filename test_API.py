@@ -18,7 +18,6 @@ def test_read_main():
     assert response.status_code == 200
     assert response.json() == {"msg": "Hello World"}
 
-
 def test_get_ids():
     """# teste sur liste Id"""
 
@@ -32,6 +31,20 @@ def test_get_ids():
     # test dtype and shape
     assert isinstance(content, list)
     assert len(content) > 50
+    
+    
+def test_get_ids():
+    """# teste sur liste Id"""
+
+    response = client.get("/test_nb_colonne/")
+
+    assert response.status_code == 200
+
+    status_code = response.status_code
+    content = response.json()
+
+    # test dtype and shape
+    assert content ==192
 
 
 def test_features_id():
