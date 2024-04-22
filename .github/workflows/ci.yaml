@@ -25,4 +25,4 @@ jobs:
 # Ajout suite à session mentorat pour lancer le déploiement uniquement si test OK
     - name: Deploy
       # A ne pas faire pour un vrai 'projet'
-      run: wget https://api.render.com/deploy/srv-cmn90v0cmk4c73e6pdeg?key=h1XF5zi1MCg    
+      run: wget https://scoring-p7.onrender.com/deploy/srv-cmn90v0cmk4c73e6pdeg?key=h1XF5zi1MCg    
