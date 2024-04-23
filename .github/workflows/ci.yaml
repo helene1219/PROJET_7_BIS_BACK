@@ -1,4 +1,4 @@
-name: auto test while pushing API.py 
+name: auto test while pushing main.py 
 
 on:
   push:
