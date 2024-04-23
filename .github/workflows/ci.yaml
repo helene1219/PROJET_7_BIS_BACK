@@ -22,7 +22,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest #python -m pytest
-# Ajout suite à session mentorat pour lancer le déploiement uniquement si test OK
+
     - name: Deploy
-      # A ne pas faire pour un vrai 'projet'
-      run: wget https://api.render.com/deploy/srv-cojcudsf7o1s73akm6vg?key=KM1Mq7yvjkk 
+
+      run: wget https://api.render.com/deploy/srv-cojcudsf7o1s73akm6vg?key=KM1Mq7yvjkk
