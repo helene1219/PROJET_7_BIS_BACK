@@ -23,6 +23,6 @@ jobs:
       run: |
         pytest #python -m pytest
 
-    - name: Deploy
+    #- name: Deploy
 
-      run: wget https://api.render.com/deploy/srv-cojcudsf7o1s73akm6vg?key=KM1Mq7yvjkk
+     # run: wget https://api.render.com/deploy/srv-cojcudsf7o1s73akm6vg?key=KM1Mq7yvjkk
