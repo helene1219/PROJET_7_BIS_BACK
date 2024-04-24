@@ -11,14 +11,17 @@ jobs:
     steps:
     - name: Check out repository code
       uses: actions/checkout@v4
+
     - name : Set-up Python V3.9.13
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9.13
+
     - name : Install Dependancies
       run: |
         pip install -r requirements.txt
         pip install pytest
+
     - name: Test with pytest
       run: |
         pytest #python -m pytest
