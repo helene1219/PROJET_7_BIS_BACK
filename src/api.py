@@ -19,7 +19,7 @@ def read_main():
 def get_ids():
 
     Liste_id = data["SK_ID_CURR"].to_list()
-    id = [int(c) for c in str(Liste_id)]
+    id = [int(c) for c in Liste_id]
     return id
 
 
