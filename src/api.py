@@ -132,7 +132,8 @@ def shap_value(client_id):
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
         
-    id = data["SK_ID_CURR"].to_list()
+    #id = data["SK_ID_CURR"].to_list()
+    id = data["SK_ID_CURR"]
     nbligne=id.index(client_id) 
 
     shap_id = shap_vals[nbligne][:, 0].values
