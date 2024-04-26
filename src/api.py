@@ -133,7 +133,7 @@ def load_prediction(client_id):
     return statut
 
 
- Shap value
+# Shap value
 @app.get("/shap/{client_id}")
 def shap_value(client_id):
 
