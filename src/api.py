@@ -167,6 +167,7 @@ def shap_values(client_id):
         Shap explanation object for a specific customer
 
     """
+    id = data["SK_ID_CURR"]
     try:
         client_id = int(client_id)
     except:
