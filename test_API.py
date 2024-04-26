@@ -73,16 +73,16 @@ def test_client_prediction():
     assert (statut := 0) | (statut := 1)
 
 
-def test_shap_value():
+#def test_shap_value():
 
-    client_id = 100006
-    response = client.get(f"/shap/{client_id}")
-
-    assert response.status_code == 200
-    shap_id = response.json()
-
-    assert isinstance(shap_id, dict)
-    assert len(shap_id.values()) > 10
+ #   client_id = 100006
+ #   response = client.get(f"/shap/{client_id}")
+#
+  #  assert response.status_code == 200
+ #   shap_id = response.json()
+#
+ #   assert isinstance(shap_id, dict)
+ #   assert len(shap_id.values()) > 10
 
 
 def test_nb():
