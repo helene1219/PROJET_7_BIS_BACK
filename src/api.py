@@ -18,7 +18,8 @@ def read_main():
 @app.get("/ids/")
 def get_ids():
 
-    id = data["SK_ID_CURR"].to_list()
+    Liste_id = data["SK_ID_CURR"].to_list()
+    id = [int(c) for c in str(Liste_id)]
     return id
 
 
