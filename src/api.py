@@ -15,11 +15,17 @@ def read_main():
     return {"msg": "Hello World"}
 
 
+#@app.get("/ids/")
+#def get_ids():
+
+#    Liste_id = data["SK_ID_CURR"].to_list()
+#    id = [int(c) for c in Liste_id]
+#    return id
+
 @app.get("/ids/")
 def get_ids():
 
-    Liste_id = data["SK_ID_CURR"].to_list()
-    id = [int(c) for c in Liste_id]
+    id = data["SK_ID_CURR"]
     return id
 
 

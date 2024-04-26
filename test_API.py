@@ -27,7 +27,8 @@ def test_get_ids():
 
     status_code = response.status_code
     content = response.json()
-
+    content = content.to_numpy().tolist()
+    
     # test dtype and shape
     assert isinstance(content, list)
     assert len(content) > 50
