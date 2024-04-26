@@ -150,8 +150,8 @@ def load_prediction(client_id):
 
 #    return shap_id_dict
 
-@app.get("/shap/{customer_id}")
-def shap_values(customer_id: int):
+@app.get("/shap/{client_id}")
+def shap_values(client_id):
     """
     Get the shap values for a selected customer.
     These features are have the most impact on model prediction for this specific customer (local explainer)
@@ -167,8 +167,10 @@ def shap_values(customer_id: int):
         Shap explanation object for a specific customer
 
     """
-    # TODO:docstring
-    # check customer_id is valid
-    _ = get_ids(customer_id)
-    idx = ids.index.get_loc(customer_id)
+    try:
+        client_id = int(client_id)
+    except:
+        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+
+    idx = ids.index.get_loc(client_id)
     return explanation_to_dict(shap_vals[idx])
