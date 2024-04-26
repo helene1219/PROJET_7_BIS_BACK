@@ -77,7 +77,7 @@ def test_client_prediction():
 def test_shap_value():
 
     client_id = 100006
-    response = client.get(f"/shap/{client_id}")
+    response = client.get(f"/shap/{str(client_id)}")
 
     assert response.status_code == 200
     shap_id = response.json()
