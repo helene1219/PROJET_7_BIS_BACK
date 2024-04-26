@@ -172,5 +172,5 @@ def shap_values(client_id):
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
 
-    idx = ids.index.get_loc(client_id)
+    idx = id.index.get_loc(client_id)
     return explanation_to_dict(shap_vals[idx])
