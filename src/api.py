@@ -8,6 +8,16 @@ from .preprocess import *
 
 app = FastAPI()
 
+def explanation_to_dict(single_exp: shap._explanation.Explanation) -> dict:
+    """
+    Convert Shap explanation to dict
+    """
+    v = pd.DataFrame(single_exp.values)[0].to_dict()
+    d = pd.DataFrame(single_exp.data)[0].to_dict()
+    dd = single_exp.display_data.to_dict()
+    b = single_exp.base_values
+    return {"values": v, "base_values": b, "data": d, "display_data": dd}
+
 
 @app.get("/")
 def read_main():
@@ -124,18 +134,41 @@ def load_prediction(client_id):
 
 
 # Shap value
-@app.get("/shap/{client_id}")
-def shap_value(client_id):
+#@app.get("/shap/{client_id}")
+#def shap_value(client_id):
 
-    try:
-        client_id = int(client_id)
-    except:
-        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
-        
-    id = data["SK_ID_CURR"].to_list()
-    nbligne=id.index(client_id) 
+#    try:
+#        client_id = int(client_id)
+#    except:
+#        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+#        
+#    id = data["SK_ID_CURR"].to_list()
+#    nbligne=id.index(client_id) 
+#
+ #   shap_id = shap_vals[nbligne][:, 0].values
+#    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
 
-    shap_id = shap_vals[nbligne][:, 0].values
-    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
+#    return shap_id_dict
 
-    return shap_id_dict
+@app.get("/shap/{customer_id}")
+def shap_values(customer_id: int):
+    """
+    Get the shap values for a selected customer.
+    These features are have the most impact on model prediction for this specific customer (local explainer)
+
+    Parameters
+    ----------
+    customer_id : int
+        Index of selected customer. If index is out of range, http error 404 is raised.
+
+    Returns
+    -------
+    shap._explanation.Explanation
+        Shap explanation object for a specific customer
+
+    """
+    # TODO:docstring
+    # check customer_id is valid
+    _ = get_ids(customer_id)
+    idx = ids.index.get_loc(customer_id)
+    return explanation_to_dict(shap_vals[idx])
