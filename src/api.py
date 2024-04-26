@@ -133,45 +133,45 @@ def load_prediction(client_id):
     return statut
 
 
-# Shap value
-#@app.get("/shap/{client_id}")
-#def shap_value(client_id):
-
-#    try:
-#        client_id = int(client_id)
-#    except:
-#        raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
-#        
-#    id = data["SK_ID_CURR"].to_list()
-#    nbligne=id.index(client_id) 
-#
- #   shap_id = shap_vals[nbligne][:, 0].values
-#    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
-
-#    return shap_id_dict
-
+ Shap value
 @app.get("/shap/{client_id}")
-def shap_values(client_id):
-    """
-    Get the shap values for a selected customer.
-    These features are have the most impact on model prediction for this specific customer (local explainer)
+def shap_value(client_id):
 
-    Parameters
-    ----------
-    customer_id : int
-        Index of selected customer. If index is out of range, http error 404 is raised.
-
-    Returns
-    -------
-    shap._explanation.Explanation
-        Shap explanation object for a specific customer
-
-    """
-    id = data["SK_ID_CURR"]
     try:
         client_id = int(client_id)
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+        
+    id = data["SK_ID_CURR"].to_list()
+    nbligne=id.index(client_id) 
 
-    idx = id.index.get_loc(client_id)
-    return explanation_to_dict(shap_vals[idx])
+    shap_id = shap_vals[nbligne][:, 1].values
+    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
+
+    return shap_id_dict
+
+#@app.get("/shap/{client_id}")
+#def shap_values(client_id):
+   # """
+   # Get the shap values for a selected customer.
+    #These features are have the most impact on model prediction for this specific customer (local explainer)
+
+    #Parameters
+    #----------
+    #customer_id : int
+        #Index of selected customer. If index is out of range, http error 404 is raised.
+
+    #Returns
+    #-------
+    #shap._explanation.Explanation
+        #Shap explanation object for a specific customer
+
+    #"""
+    #id = data["SK_ID_CURR"]
+    #try:
+       # client_id = int(client_id)
+    #except:
+       # raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
+
+    #idx = id.index.get_loc(client_id)
+    #return explanation_to_dict(shap_vals[idx])
