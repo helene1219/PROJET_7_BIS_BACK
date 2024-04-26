@@ -172,5 +172,5 @@ def shap_values(client_id):
     except:
         raise AttributeError(f"Problem with client_id : {client_id}, {type(client_id)}")
 
-    idx = id.index.get_loc(client_id)
+    index = id["SK_ID_CURR"][id["SK_ID_CURR"] == client_id].index.tolist()
     return explanation_to_dict(shap_vals[idx])
