@@ -128,8 +128,7 @@ def shap_value(client_id):
     id = data["SK_ID_CURR"].to_list()
     nbligne=id.index(client_id) 
 
-    shap_id = shap_vals[nbligne].values
-    shap_id_dict = dict(enumerate(shap_id.flatten(), 1))
+    shap_pd = pd.DataFrame(shap_vals.values[nbligne][:, 0], index = X_train_sample.columns)
 
-    return shap_id_dict
+    return shap_pd
 
