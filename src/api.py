@@ -115,6 +115,14 @@ def load_prediction(client_id):
 
     return statut
 
+# NomColonne
+@app.get("/feature")
+def feature():
+
+    df_feature = pd.DataFrame(X_train_sample.columns,columns=['Feature'])
+
+    return df_feature
+
 
 # Shap value
 @app.get("/shap/{client_id}")
