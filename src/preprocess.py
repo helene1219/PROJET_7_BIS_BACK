@@ -38,4 +38,4 @@ proba_df = pd.DataFrame(proba, columns=["proba_classe_0", "proba_classe_1"])
 # shap-value
 shap_values_lgbm = estimateur.predict(X_train_sample, pred_contrib=True)
 explainer = shap.TreeExplainer(estimateur)
-shap_vals = explainer(X_train_sample)
+shap_vals = explainer.shap_values(X_train_sample)
