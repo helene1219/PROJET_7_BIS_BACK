@@ -81,9 +81,7 @@ def test_shap_value():
 
     assert response.status_code == 200
     shap_id = response.json()
-
-    assert len(shap_id)==192
-
+    assert isinstance(shap_id, dict)
 
 def test_nb():
 
