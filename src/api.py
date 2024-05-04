@@ -120,8 +120,8 @@ def load_prediction(client_id):
 def feature():
 
     df_feature = pd.DataFrame(X_train_sample.columns,columns=['Feature'])
-
-    return df_feature
+    id_feature = df_feature["Feature"].to_list()
+    return id_feature
 
 
 # Shap value
