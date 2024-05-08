@@ -1,14 +1,17 @@
-"""
-routes file
-"""
+#####################################
+########### Script pour API #########
+#####################################
 
-from fastapi import FastAPI, Response  # , UploadFile
 
+
+### 1. Import des librairies requises
+from fastapi import FastAPI, Response 
 from .preprocess import *
 
+# 2. Create the api object
 app = FastAPI()
 
-
+## 3. Routes
 @app.get("/")
 def read_main():
 
@@ -88,12 +91,7 @@ def load_income_population():
 
     return df_age
 
-########################################""
-# juste renvoie le describe...
-########################################"
 
-
-# Calcul prédiction
 @app.get("/prediction/{client_id}")
 def load_prediction(client_id):
 
@@ -115,7 +113,7 @@ def load_prediction(client_id):
 
     return statut
 
-# NomColonne
+
 @app.get("/feature")
 def feature():
 
@@ -124,7 +122,7 @@ def feature():
     return id_feature
 
 
-# Shap value
+
 @app.get("/shap/{client_id}")
 def shap_value(client_id):
 

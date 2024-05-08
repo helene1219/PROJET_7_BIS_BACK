@@ -1,6 +1,6 @@
-"""
-Test pour API
-"""
+#####################################
+##########Test pour API #########
+#####################################
 
 import pandas as pd
 import pytest
@@ -35,7 +35,7 @@ def test_get_ids():
     
     
 def test_get_ids():
-    """# teste sur liste Id"""
+    """# teste sur nb colonne """
 
     response = client.get("/test_nb_colonne/")
 
